@@ -43,6 +43,26 @@ class ProductController extends Controller
         $product->amount = $request ->amount;
         $product -> user_id = $request ->user_id;
 
+        //upload single image
+//        $image = $request->file('image');
+//        if($request->hasFile('image'))
+//        {
+//            $new_name = rand().'.'.$image->getClientOriginalExtension();
+//            $image->move(public_path('/uploads/images'),$new_name);
+//        }
+//        $product ->image=$new_name;
+//
+        //upload multiple image
+        $images = $request->file('image');
+        $imageName='';
+        foreach ($images as $image){
+            $new_name = rand().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('/uploads/images'),$new_name);
+            $imageName=$imageName.$new_name.'.';
+        }
+
+        $product ->image=$imageName;
+
         if($product->save())
         {
             return new ProductResource($product);

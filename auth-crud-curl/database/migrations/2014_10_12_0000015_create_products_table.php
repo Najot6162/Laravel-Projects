@@ -21,8 +21,8 @@ class CreateProductsTable extends Migration
             $table->bigInteger('amount')->nullable();
             $table->integer('user_id')->unsigned()->index()->default(2);;
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('image')->default('null');
             $table->timestamps();
-
         });
     }
 
