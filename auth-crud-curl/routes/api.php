@@ -28,7 +28,7 @@ Route::post('/login',[AuthController::class,'login']);
 Route::get('/currency',[CurrencyController::class,'index']);
 Route::get('/products',[ProductController::class,'index']);
 Route::post('/product',[ProductController::class,'store']);
-Route::put('/posts/{id}',[ProductController::class,'update']);
+Route::put('/products/{id}',[ProductController::class,'update']);
 Route::delete('/products/{id}',[ProductController::class,'destroy']);
 Route::post('/logout',[AuthController::class,'logout']);
 Route::get('/users/{id?}',[UserController::class,'showUser']);
