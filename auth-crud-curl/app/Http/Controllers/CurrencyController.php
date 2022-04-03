@@ -37,9 +37,10 @@ class CurrencyController extends Controller
                     echo $currency;
                     if ($currency->save())
                     {
-                        return new ProductResource($currency);
+                        
                     }
                 }
+            return new ProductResource($currency);
         }
         curl_close($ch);
     }
