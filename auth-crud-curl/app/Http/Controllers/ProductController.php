@@ -50,8 +50,9 @@ class ProductController extends Controller
         $product = new Product();
         $product->title = $request->title;
         $product->amount = $request ->amount;
-        $id = User::findOrFail(auth()->user()->id);
-        $product -> user_id = $id->id;
+        $user = User::findOrFail(auth()->user()->id);
+        $product -> user_id = $user->id;
+        $product->user_data = $user;
         $product ->image=$path;
         echo $product;
         if($product->save())

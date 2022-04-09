@@ -19,9 +19,10 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->string('title',255)->nullable();
             $table->bigInteger('amount')->nullable();
-            $table->integer('user_id')->unsigned()->index()->default(2);;
+            $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('image')->default('null');
+            $table->string('user_data')->nullable();
             $table->timestamps();
         });
     }
