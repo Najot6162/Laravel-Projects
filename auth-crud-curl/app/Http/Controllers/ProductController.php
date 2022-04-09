@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -38,31 +39,21 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'title' => 'required',
+            'amount'=>'required',
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ]);
+        $path = $request->file('image')->store('public/images');
+
         $product = new Product();
         $product->title = $request->title;
         $product->amount = $request ->amount;
-        $product -> user_id = $request ->user_id;
-
-        //upload single image
-//        $image = $request->file('image');
-//        if($request->hasFile('image'))
-//        {
-//            $new_name = rand().'.'.$image->getClientOriginalExtension();
-//            $image->move(public_path('/uploads/images'),$new_name);
-//        }
-//        $product ->image=$new_name;
-//
-        //upload multiple image
-        $images = $request->file('image');
-        $imageName='';
-        foreach ($images as $image){
-            $new_name = rand().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('/uploads/images'),$new_name);
-            $imageName=$imageName.$new_name.'.';
-        }
-
-        $product ->image=$imageName;
-
+        $id = User::findOrFail(auth()->user()->id);
+        $product -> user_id = $id->id;
+        $product ->image=$path;
+        echo $product;
         if($product->save())
         {
             return new ProductResource($product);

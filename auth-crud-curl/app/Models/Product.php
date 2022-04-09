@@ -12,4 +12,8 @@ class Product extends Model
     protected $table = "products";
 
     protected $fillable = ['title','amount','image'];
+
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
 }
