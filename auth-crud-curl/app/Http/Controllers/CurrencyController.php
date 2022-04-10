@@ -27,8 +27,7 @@ class CurrencyController extends Controller
             echo $e;
         }
         else{
-            $decoded = json_decode(json_encode($resp));
-            $obj = json_decode($decoded);
+            $obj = json_decode($resp);
                 foreach ($obj as $key => $value) {
                     $currency = New Currency();
                     $currency -> short_name = $key;
@@ -37,7 +36,7 @@ class CurrencyController extends Controller
                     echo $currency;
                     if ($currency->save())
                     {
-                        
+
                     }
                 }
             return new ProductResource($currency);
