@@ -34,10 +34,7 @@ class CurrencyController extends Controller
                     $currency ->country = $value;
 
                     echo $currency;
-                    if ($currency->save())
-                    {
-
-                    }
+                    $currency->save();
                 }
             return new ProductResource($currency);
         }
